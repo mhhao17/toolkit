@@ -27,8 +27,9 @@
   set_fact:
     file_content: "{{ item }}"
   with_file:
-    - /backup/"{{ inventory_hostname }}.txt"
-    
+    - "{{ inventory_hostname }}.txt"
+  delegate_to: localhost
+  
 - name: push cfg to gitlab
   uri:
     uri: https://gitlab.com/api/v4/projects/{{ gitlab_project_id }}/repository/commits
