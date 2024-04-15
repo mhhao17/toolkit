@@ -35,7 +35,7 @@
 
     - name: Create a directory if it does not exist
       ansible.builtin.file:
-        path: /backup/
+        path: /backup/cisco-cfg-backup/
         state: directory
         mode: "755"
       delegate_to: backup-server
@@ -45,56 +45,56 @@
     - name: Save configuration to backup server
       ansible.builtin.copy:
         src: "{{ config_output.backup_path }}"
-        dest: "/backup/{{ hostvars['backup-server'].datetime }}/"
+        dest: "/backup/cisco-cfg-backup/{{ hostvars['backup-server'].datetime }}/"
         mode: "644"
       when: config_output is defined
       become: true
       delegate_to: backup-server
   
-    - name: Find backups
-      ansible.builtin.find:
-        paths: /backup
-        file_type: directory
-      register: backups
-      run_once: true
-      become: true
-      delegate_to: backup-server
-      delegate_facts: true
+    # - name: Find backups
+    #   ansible.builtin.find:
+    #     paths: //backup/cisco-cfg-backup
+    #     file_type: directory
+    #   register: backups
+    #   run_once: true
+    #   become: true
+    #   delegate_to: backup-server
+    #   delegate_facts: true
 
-    - name: read cfg file content
-      set_fact:
-        file_content: "{{ item }}"
-      with_file:
-        - "/backup/{{ hostvars['backup-server'].datetime }}/{{ inventory_hostname }}.txt"
+    # - name: read cfg file content
+    #   set_fact:
+    #     file_content: "{{ item }}"
+    #   with_file:
+    #     - "/backup/{{ hostvars['backup-server'].datetime }}/{{ inventory_hostname }}.txt"
   
-    - name: push cfg to gitlab
-      uri:
-        uri: https://gitlab.com/api/v4/projects/{{ gitlab_project_id }}/repository/commits
-        headers:
-          Private-Token: "{{ gitlab_access_token}}"
-        validate_: no
-        method: POST
-        body:
-          branch: master
-          commit_message: create cisco cfg
-          actions:
-            - action: create
-              file_path: "{{ inventory_hostname }}.txt"
-              content: "{{ file_content }}"
-        status_code: 201
-        body_format: json
-      delegate_to: backup-server
+    # - name: push cfg to gitlab
+    #   uri:
+    #     uri: https://gitlab.com/api/v4/projects/{{ gitlab_project_id }}/repository/commits
+    #     headers:
+    #       Private-Token: "{{ gitlab_access_token}}"
+    #     validate_: no
+    #     method: POST
+    #     body:
+    #       branch: master
+    #       commit_message: create cisco cfg
+    #       actions:
+    #         - action: create
+    #           file_path: "{{ inventory_hostname }}.txt"
+    #           content: "{{ file_content }}"
+    #     status_code: 201
+    #     body_format: json
+    #   delegate_to: backup-server
 
-    - name: Create restore job template
-      ansible.controller.job_template:
-        name: "Network Automation - Restore"
-        job_type: "run"
-        inventory: "{{ restore_inventory | default('Network Inventory') }}"
-        project: "{{ restore_project | default('Network Toolkit') }}"
-        playbook: "{{ restores_playbook | default('playbooks/network_restore.yml') }}"
-        credential: "{{ restore_credential | default('Network Credential') }}"
-        survey_enabled: true
-        survey_spec: "{{ lookup('template', '{{ playbook_dir }}/templates/backup.j2') }}"
-        validate_certs: false
-        execution_environment: "Default execution environment"
-      run_once: true
+    # - name: Create restore job template
+    #   ansible.controller.job_template:
+    #     name: "Network Automation - Restore"
+    #     job_type: "run"
+    #     inventory: "{{ restore_inventory | default('Network Inventory') }}"
+    #     project: "{{ restore_project | default('Network Toolkit') }}"
+    #     playbook: "{{ restores_playbook | default('playbooks/network_restore.yml') }}"
+    #     credential: "{{ restore_credential | default('Network Credential') }}"
+    #     survey_enabled: true
+    #     survey_spec: "{{ lookup('template', '{{ playbook_dir }}/templates/backup.j2') }}"
+    #     validate_certs: false
+    #     execution_environment: "Default execution environment"
+    #   run_once: true
