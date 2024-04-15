@@ -22,21 +22,12 @@
     regexp: '^(Building configuration\.\.\.|! Last configuration change at 08:45:52 UTC Thu Apr 11 2024 by cisco)$'
     state: absent
   delegate_to: localhost
-  
-- name: Debug file path
-  ansible.builtin.debug:
-    msg: "{{ lookup('env', 'PWD') }}/cisco.txt"
-
-- name: Debug file existence
-  ansible.builtin.debug:
-    msg: "{{ lookup('file', lookup('env', 'PWD') + '/cisco.txt') }}"
 
 - name: read cfg file content
   set_fact:
     file_content: "{{ item }}"
   with_file:
-    - "{{ inventory_hostname }}.txt"
-  delegate_to: localhost
+    - - "/backup/{{ hostvars['backup-server'].datetime }}/{{ inventory_hostname }}.txt"
   
 - name: push cfg to gitlab
   uri:
