@@ -23,26 +23,26 @@
     state: absent
   delegate_to: localhost
 
-- name: read cfg file content
-  set_fact:
-    file_content: "{{ item }}"
-  with_file:
-    - - "/backup/{{ hostvars['backup-server'].datetime }}/{{ inventory_hostname }}.txt"
+# - name: read cfg file content
+#   set_fact:
+#     file_content: "{{ item }}"
+#   with_file:
+#     - - "/backup/{{ hostvars['backup-server'].datetime }}/{{ inventory_hostname }}.txt"
   
-- name: push cfg to gitlab
-  uri:
-    uri: https://gitlab.com/api/v4/projects/{{ gitlab_project_id }}/repository/commits
-    headers:
-      Private-Token: "{{ gitlab_access_token}}"
-    validate_: no
-    method: POST
-    body:
-      branch: master
-      commit_message: create cisco cfg
-      actions:
-        - action: create
-          file_path: "{{ inventory_hostname }}.txt"
-          content: "{{ file_content }}"
-    status_code: 201
-    body_format: json
-  delegate_to: localhost
+# - name: push cfg to gitlab
+#   uri:
+#     uri: https://gitlab.com/api/v4/projects/{{ gitlab_project_id }}/repository/commits
+#     headers:
+#       Private-Token: "{{ gitlab_access_token}}"
+#     validate_: no
+#     method: POST
+#     body:
+#       branch: master
+#       commit_message: create cisco cfg
+#       actions:
+#         - action: create
+#           file_path: "{{ inventory_hostname }}.txt"
+#           content: "{{ file_content }}"
+#     status_code: 201
+#     body_format: json
+#   delegate_to: localhost
