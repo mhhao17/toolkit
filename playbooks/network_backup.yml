@@ -50,6 +50,16 @@
       when: config_output is defined
       become: true
       delegate_to: backup-server
+  
+    - name: Find backups
+      ansible.builtin.find:
+        paths: /backup
+        file_type: directory
+      register: backups
+      run_once: true
+      become: true
+      delegate_to: backup-server
+      delegate_facts: true
 
     - name: read cfg file content
       set_fact:
@@ -74,16 +84,6 @@
         status_code: 201
         body_format: json
       delegate_to: backup-server
-  
-    - name: Find backups
-      ansible.builtin.find:
-        paths: /backup
-        file_type: directory
-      register: backups
-      run_once: true
-      become: true
-      delegate_to: backup-server
-      delegate_facts: true
 
     - name: Create restore job template
       ansible.controller.job_template:
