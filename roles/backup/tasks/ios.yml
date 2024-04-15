@@ -27,7 +27,7 @@
   set_fact:
     file_content: "{{ item }}"
   with_file:
-    - "{{ inventory_hostname }}.txt"
+    - /backup/"{{ inventory_hostname }}.txt"
     
 - name: push cfg to gitlab
   uri:
