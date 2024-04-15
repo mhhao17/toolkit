@@ -50,7 +50,17 @@
       when: config_output is defined
       become: true
       delegate_to: backup-server
-  
+
+    - name: git commands
+      shell: |
+        git add .
+        git commit -m "Device Backup on {{time.stdout}} "
+        git push
+      args:
+        chdir: /backup/cisco-cfg-backup
+      delegate_to: localhost
+      run_once: yes
+      
     # - name: Find backups
     #   ansible.builtin.find:
     #     paths: //backup/cisco-cfg-backup
