@@ -58,7 +58,7 @@
         git push
       args:
         chdir: /backup/cisco-cfg-backup
-      delegate_to: localhost
+      delegate_to: backup-server
       run_once: yes
       
     # - name: Find backups
