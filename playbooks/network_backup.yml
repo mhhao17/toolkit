@@ -51,7 +51,7 @@
       become: true
       delegate_to: backup-server
 
-    - name: git commands
+    - name: push cfg to gitlab
       shell: |
         git add .
         git commit -m "Device Backup on {{ hostvars['backup-server'].datetime }} "
@@ -70,30 +70,6 @@
     #   become: true
     #   delegate_to: backup-server
     #   delegate_facts: true
-
-    # - name: read cfg file content
-    #   set_fact:
-    #     file_content: "{{ item }}"
-    #   with_file:
-    #     - "/backup/{{ hostvars['backup-server'].datetime }}/{{ inventory_hostname }}.txt"
-  
-    # - name: push cfg to gitlab
-    #   uri:
-    #     uri: https://gitlab.com/api/v4/projects/{{ gitlab_project_id }}/repository/commits
-    #     headers:
-    #       Private-Token: "{{ gitlab_access_token}}"
-    #     validate_: no
-    #     method: POST
-    #     body:
-    #       branch: master
-    #       commit_message: create cisco cfg
-    #       actions:
-    #         - action: create
-    #           file_path: "{{ inventory_hostname }}.txt"
-    #           content: "{{ file_content }}"
-    #     status_code: 201
-    #     body_format: json
-    #   delegate_to: backup-server
 
     # - name: Create restore job template
     #   ansible.controller.job_template:
