@@ -1,10 +1,17 @@
+## This task will backup the configuration
+#- name: Backup cisco nxos configuration
+#  cisco.nxos.nxos_config:
+#    backup: true
+#    backup_options:
+#      dir_path: /tmp/
+#      filename: "{{ inventory_hostname }}.txt"
+#  register: config_output
+
 # This task will backup the configuration
 - name: Backup cisco nxos configuration
-  cisco.nxos.nxos_config:
-    backup: true
-    backup_options:
-      dir_path: /tmp/
-      filename: "{{ inventory_hostname }}.txt"
+  cisco.nxos.nxos_command:
+    commands:
+    - sh run | exclude Command|Running|Time
   register: config_output
 
 # This task removes the Last configuration change from the top of IOS routers show run
