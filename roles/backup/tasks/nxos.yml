@@ -1,0 +1,16 @@
+# This task will backup the configuration
+- name: Backup cisco ios configuration
+  cisco.nxos.nxos_config:
+    backup: true
+    backup_options:
+      dir_path: /tmp/
+      filename: "{{ inventory_hostname }}.txt"
+  register: config_output
+
+# This task removes the Last configuration change from the top of IOS routers show run
+- name: Remove non config lines - regexp
+  ansible.builtin.lineinfile:
+    path: "{{ config_output.backup_path }}"
+    regexp: '^(Building configuration\.\.\.|! Last configuration change at .* by cisco)$'
+    state: absent
+  delegate_to: localhost
