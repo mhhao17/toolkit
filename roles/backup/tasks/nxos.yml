@@ -11,6 +11,6 @@
 - name: Remove non config lines - regexp
   ansible.builtin.lineinfile:
     path: "{{ config_output.backup_path }}"
-    regexp: '^(Building configuration\.\.\.|! Last configuration change at .* by cisco)$'
+    regexp: '^(\\!Command: show running-config|\\!Running configuration last done at:.*|\\!Time: .*)$'
     state: absent
   delegate_to: localhost
