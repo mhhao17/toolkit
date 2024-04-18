@@ -14,6 +14,11 @@
     - sh run | exclude Command|Running|Time
   register: config_output
 
+- name: Output the content to /tmp/
+  copy:
+    content: "{{ config_output.stdout }}"
+    dest: "/tmp/"{{ inventory_hostname }}"
+    
 # This task removes the Last configuration change from the top of IOS routers show run
 #- name: Remove non config lines - regexp
 #  ansible.builtin.lineinfile:
