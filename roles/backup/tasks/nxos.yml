@@ -1,5 +1,5 @@
 # This task will backup the configuration
-- name: Backup cisco ios configuration
+- name: Backup cisco nxos configuration
   cisco.nxos.nxos_config:
     backup: true
     backup_options:
