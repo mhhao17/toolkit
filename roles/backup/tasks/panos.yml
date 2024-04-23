@@ -1,0 +1,5 @@
+- name: Export configuration
+  paloaltonetworks.panos.panos_export:
+    provider: '{{ provider }}'
+    category: 'configuration'
+    filename: 'running-config.xml'
