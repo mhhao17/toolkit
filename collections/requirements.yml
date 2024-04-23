@@ -2,6 +2,5 @@
 collections:
   - cisco.ios
   - cisco.nxos
-  - arista.eos
-  - junipernetworks.junos
+  - paloaltonetworks.panos
   - awx.awx
