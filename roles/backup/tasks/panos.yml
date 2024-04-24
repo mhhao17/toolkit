@@ -1,6 +1,6 @@
 ---
 - name: Export configuration
-  hosts: "firewall"
+  hosts: "network"
   connection: local
 
   vars:
