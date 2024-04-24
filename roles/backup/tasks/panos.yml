@@ -3,11 +3,11 @@
   hosts: "network"
   connection: local
 
-  vars:
-    device:
-      ip_address: "{{ ip_address }}"
-      username: "{{ username }}"
-      password: "{{ password }}"
+  # vars:
+  #   device:
+  #     ip_address: "{{ ip_address }}"
+  #     username: "{{ username }}"
+  #     password: "{{ password }}"
 
   tasks:
     - name: Backup PA Configuration
