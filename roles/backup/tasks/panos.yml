@@ -1,5 +1,17 @@
+---
 - name: Export configuration
-  paloaltonetworks.panos.panos_export:
-    provider: '{{ provider }}'
-    category: 'configuration'
-    filename: 'running-config.xml'
+  hosts: "firewall"
+  connection: local
+
+  vars:
+    device:
+      ip_address: "{{ ip_address }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+
+  tasks:
+    - name: Backup PA Configuration
+      paloaltonetworks.panos.panos_export:
+        provider: '{{ device }}'
+        category: 'configuration'
+        filename: '{{ inventory_hostname }}.xml'
