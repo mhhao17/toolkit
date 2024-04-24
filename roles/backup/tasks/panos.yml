@@ -6,7 +6,7 @@
       password: "Manager1"
     category: 'configuration'
     filename: '{{ inventory_hostname }}.xml'
-#   register: config_output
+  register: config_output
 
 # - name: Save export result to a file
 #   copy:
