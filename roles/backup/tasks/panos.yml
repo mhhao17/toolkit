@@ -6,12 +6,9 @@
       password: "Manager1"
     category: 'configuration'
     filename: '{{ inventory_hostname }}.xml'
-    backup_options:
-      dir_path: /tmp/
-      filename: "{{ inventory_hostname }}.txt"
   register: config_output
 
-# - name: Save export result to a file
-#   copy:
-#     content: "{{ config_output.content }}"
-#     dest: "/backup/{{ inventory_hostname }}.xml"
+- name: Save export result to a file
+  copy:
+    src: "{{ inventory_hostname }}.xml"
+    dest: "/backup/{{ inventory_hostname }}.xml"
