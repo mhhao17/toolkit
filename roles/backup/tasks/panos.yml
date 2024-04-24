@@ -11,4 +11,4 @@
 - name: Save export result to a file
   copy:
     src: "{{ inventory_hostname }}.xml"
-    dest: "/backup/{{ inventory_hostname }}.xml"
+    dest: "/tmp/{{ inventory_hostname }}.xml"
