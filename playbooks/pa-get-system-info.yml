@@ -9,8 +9,8 @@
       username: "{{ username }}"
       password: "{{ password }}"
 
-  collections:
-    - paloaltonetworks.panos
+  # collections:
+  #   - paloaltonetworks.panos
 
   tasks:
     - name: Gather facts for device
