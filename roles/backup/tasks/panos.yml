@@ -1,26 +1,14 @@
----
-- name: Export configuration
-  hosts: "network"
-  connection: local
+- name: Backup PA Configuration
+  paloaltonetworks.panos.panos_export:
+    provider: 
+      host: "192.168.10.145"
+      username: "admin"
+      password: "Manager1"
+    category: 'configuration'
+    filename: '{{ inventory_hostname }}.xml'
+  register: config_output
 
-  # vars:
-  #   device:
-  #     ip_address: "192.168.10.145"
-  #     username: "admin"
-  #     password: "Manager1"
-
-  tasks:
-    - name: Backup PA Configuration
-      paloaltonetworks.panos.panos_export:
-        provider: 
-          host: "192.168.10.145"
-          username: "admin"
-          password: "Manager1"
-        category: 'configuration'
-        filename: '{{ inventory_hostname }}.xml'
-      register: config_output
-    
-    - name: Save export result to a file
-      copy:
-        content: "{{ config_output.content }}"
-        dest: "/backup/{{ inventory_hostname }}.xml"
+- name: Save export result to a file
+  copy:
+    content: "{{ config_output.content }}"
+    dest: "/backup/{{ inventory_hostname }}.xml"
