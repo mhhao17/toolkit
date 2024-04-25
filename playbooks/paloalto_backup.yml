@@ -1,0 +1,26 @@
+- name: Backup PA Configuration
+  paloaltonetworks.panos.panos_export:
+    provider: 
+      ip_address: "192.168.10.145"
+      username: "admin"
+      password: "Manager1"
+    category: 'configuration'
+    # filename: "/tmp/{{ inventory_hostname }}.xml"
+    filename: "/backup/{{ inventory_hostname }}.xml"
+  register: config_output
+  delegate_to: backup-server
+
+# - name: Save export result to a file
+#   copy:
+#     content: "{{ config_output.content }}"
+#     dest: "/backup/backup.xml"
+
+- name: push cfg to gitlab
+  shell: |
+    git add .
+    git commit -m "Device Backup on {{ hostvars['backup-server'].datetime }} "
+    git push
+  args:
+    chdir: /backup/
+  delegate_to: backup-server
+  run_once: yes
