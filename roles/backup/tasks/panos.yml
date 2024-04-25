@@ -6,7 +6,7 @@
       password: "Manager1"
     category: 'configuration'
     filename: "{{ inventory_hostname }}.xml"
-    file_path: "/{{ backup_path }}"/
+    file_path: "/backup/"
   # register: export_result
   delegate_to: backup-server
 
