@@ -7,6 +7,7 @@
     category: 'configuration'
     filename: "/tmp/{{ inventory_hostname }}.xml"
   register: config_output
+  delegate_to: backup-server
 
 # - name: Save export result to a file
 #   copy:
