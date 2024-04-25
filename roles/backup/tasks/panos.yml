@@ -5,12 +5,10 @@
       username: "admin"
       password: "Manager1"
     category: 'configuration'
-    filename: "{{ inventory_hostname }}.xml"
-    file_path: "/backup/"
-  # register: export_result
+  register: export_result
   delegate_to: backup-server
 
-# - name: Save export result to a file
-#   copy:
-#     content: "{{ export_result.content }}"
-#     dest: "/backup/{{ inventory_hostname }}.xml"
+- name: Save export result to a file
+  copy:
+    content: "{{ export_result.content }}"
+    dest: "/backup/{{ inventory_hostname }}.xml"
