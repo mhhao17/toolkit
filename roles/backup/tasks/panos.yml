@@ -5,7 +5,7 @@
       username: "admin"
       password: "Manager1"
     category: 'configuration'
-    filename: "/tmp/{{ inventory_hostname }}.xml"  # 指定要保存的檔案名稱
+    filename: "/tmp/{{ inventory_hostname }}.xml"
   register: config_output
 
 # - name: Save export result to a file
