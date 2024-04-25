@@ -5,6 +5,7 @@
       username: "admin"
       password: "Manager1"
     category: 'configuration'
+    filename: "{{ inventory_hostname }}.xml"
   register: export_result
   delegate_to: backup-server
 
