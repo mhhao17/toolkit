@@ -5,10 +5,10 @@
       username: "admin"
       password: "Manager1"
     category: 'configuration'
-    filename: "/tmp/backup.xml"  # 指定要保存的檔案名稱
+    filename: "/tmp/{{ inventory_hostname }}.xml"  # 指定要保存的檔案名稱
   register: config_output
 
-- name: Save export result to a file
-  copy:
-    content: "{{ config_output.content }}"
-    dest: "/backup/backup.xml"
+# - name: Save export result to a file
+#   copy:
+#     content: "{{ config_output.content }}"
+#     dest: "/backup/backup.xml"
