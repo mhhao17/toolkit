@@ -12,7 +12,7 @@
         password: "Manager1"
       category: 'configuration'
       # filename: "/tmp/{{ inventory_hostname }}.xml"
-      filename: "/backup/{{ inventory_hostname }}.xml"
+      filename: "/backup/cisco-cfg-backup/{{ inventory_hostname }}.xml"
     register: config_output
     delegate_to: backup-server
 
