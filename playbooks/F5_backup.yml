@@ -1,0 +1,28 @@
+---
+- name: Fetch BIG-IP UCS
+  hosts: network
+  gather_facts: False
+  vars:
+    provider:
+      password: "Manager002"
+      server: "192.168.10.146"
+      user: "admin"
+      validate_certs: False
+
+  tasks:
+    - name: get current time on localhost
+      command: date "+%H%M%S-%m%d%y"
+      register: date
+      delegate_to: localhost
+      run_once: True
+     
+    - name: set filename var
+      set_fact:
+        ucs: "{{ inventory_hostname + '-' + date.stdout +  '-backup.ucs' }}"
+
+    - name: Download a new UCS
+      bigip_ucs_fetch:
+        src: "{{ ucs }}"
+        dest: "{{ '/tmp/ucs/' + ucs }}"
+        provider: "{{ provider }}"
+      delegate_to: localhost
