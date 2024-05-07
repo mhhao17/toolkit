@@ -1,7 +1,7 @@
 ---
 - name: Fetch BIG-IP UCS
   hosts: network
-  gather_facts: False
+  gather_facts: true
   vars:
     provider:
       password: "Manager002"
@@ -13,7 +13,7 @@
     - name: get current time on localhost
       command: date "+%H%M%S-%m%d%y"
       register: date
-      delegate_to: backup-server
+      delegate_to: localhost
       run_once: True
      
     - name: set filename var
@@ -25,4 +25,4 @@
         src: "{{ ucs }}"
         dest: "{{ '/f5_backup/' + ucs }}"
         provider: "{{ provider }}"
-      delegate_to: backup-server
+      delegate_to: localhost
