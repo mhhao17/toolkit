@@ -26,11 +26,3 @@
         dest: "{{ '/tmp/' + ucs }}"
         provider: "{{ provider }}"
       delegate_to: localhost
-    
-    - name: Copy UCS to Remote Host
-      ansible.builtin.synchronize:
-        src: "{{ '/tmp/' + ucs }}"
-        dest: "/f5_backup/{{ ucs }}"
-        mode: pull
-      delegate_to: backup-server
- 
