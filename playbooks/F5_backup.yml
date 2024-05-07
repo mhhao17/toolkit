@@ -13,7 +13,7 @@
     - name: get current time on localhost
       command: date "+%H%M%S-%m%d%y"
       register: date
-      delegate_to: backup-server
+      delegate_to: localhost
       run_once: True
      
     - name: set filename var
@@ -23,6 +23,6 @@
     - name: Download a new UCS
       bigip_ucs_fetch:
         src: "{{ ucs }}"
-        dest: "{{ '/tmp/ucs/' + ucs }}"
+        dest: "{{ '/f5_backup' + ucs }}"
         provider: "{{ provider }}"
-      delegate_to: backup-server
+      delegate_to: localhost
