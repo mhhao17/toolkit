@@ -23,6 +23,6 @@
     - name: Download a new UCS
       bigip_ucs_fetch:
         src: "{{ ucs }}"
-        dest: "{{ '/f5_backup' + ucs }}"
+        dest: "{{ '/f5_backup/' + ucs }}"
         provider: "{{ provider }}"
       delegate_to: localhost
