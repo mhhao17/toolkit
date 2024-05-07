@@ -13,7 +13,7 @@
     - name: get current time on localhost
       command: date "+%H%M%S-%m%d%y"
       register: date
-      delegate_to: localhost
+      delegate_to: backup-server
       run_once: True
      
     - name: set filename var
@@ -25,4 +25,4 @@
         src: "{{ ucs }}"
         dest: "{{ '/tmp/ucs/' + ucs }}"
         provider: "{{ provider }}"
-      delegate_to: localhost
+      delegate_to: backup-server
