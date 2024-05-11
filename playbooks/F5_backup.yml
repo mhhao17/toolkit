@@ -5,8 +5,8 @@
   vars:
     provider:
       server: "192.168.10.146"
-      # user: "admin"
-      # password: "Manager002"
+      user: "admin"
+      password: "Manager002"
       validate_certs: False
 
   tasks:
