@@ -1,6 +1,6 @@
 ---
 - name: CLI command playbook
-  hosts: all
+  hosts: "{{ survey_hosts | default('all') }}"
   gather_facts: false
   vars:
     ansible_connection: network_cli
