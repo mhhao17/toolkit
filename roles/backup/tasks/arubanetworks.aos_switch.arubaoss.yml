@@ -7,6 +7,14 @@
       filename: "{{ inventory_hostname }}.txt"
   register: config_output
 
+- name: Save configuration to backup server
+  ansible.builtin.copy:
+    src: "{{ config_output.backup_path }}"
+    dest: "/backup/cisco-cfg-backup/{{ hostvars['backup-server'].datetime }}/"
+    mode: "644"
+  when: config_output is defined
+  become: true
+  delegate_to: backup-server
 # # This task removes the Current configuration... from the top of IOS routers show run
 # - name: Remove non config lines - regexp
 #   ansible.builtin.lineinfile:
