@@ -4,3 +4,4 @@ collections:
   - cisco.nxos
   - paloaltonetworks.panos
   - awx.awx
+  - arubanetworks.aos_switch
