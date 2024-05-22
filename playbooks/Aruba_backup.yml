@@ -14,7 +14,7 @@
 
   - name: Create a directory if it does not exist
     ansible.builtin.file:
-      path: /backup/cisco-cfg-backup/
+      path: /backup/
       state: directory
       mode: "755"
     become: true
@@ -23,9 +23,9 @@
   - name: Backup Aruba Switch Configuration
     arubanetworks.aos_switch.arubaoss_config:
       backup: true
-      filename: "/backup/cisco-cfg-backup/{{ inventory_hostname }}.txt"
+      filename: "/backup/{{ inventory_hostname }}.txt"
     register: config_output
-    delegate_to: backup-server
+    # delegate_to: backup-server
 
   # - name: push cfg to gitlab
   #   shell: |
