@@ -23,7 +23,8 @@
   - name: Backup Aruba Switch Configuration
     arubanetworks.aos_switch.arubaoss_config:
       backup: true
-      filename: "/backup/{{ inventory_hostname }}.txt"
+      backup_options:
+        filename: "/backup/{{ inventory_hostname }}.txt"
     register: config_output
     # delegate_to: backup-server
 
