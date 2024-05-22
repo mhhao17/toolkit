@@ -17,7 +17,6 @@
       path: /backup/cisco-cfg-backup/
       state: directory
       mode: "755"
-    delegate_to: backup-server
     become: true
     run_once: true
 
