@@ -1,6 +1,6 @@
 # This task will backup the configuration
 - name: Backup aruba aos configuration
-  arubaoss_config:
+  arubanetworks.aos_switch.arubaoss_config:
     backup: true
     backup_options:
       dir_path: /tmp/
