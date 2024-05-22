@@ -15,15 +15,10 @@
   - name: Backup Aruba Switch Configuration
     arubanetworks.aos_switch.arubaoss_config:
       backup: true
-      backup_options:
-        filename: "/backup/cisco-cfg-backup/{{ inventory_hostname }}.txt"
+      # backup_options:
+      #   filename: "/backup/cisco-cfg-backup/{{ inventory_hostname }}.txt"
     register: config_output
     delegate_to: backup-server
-
-  # - name: Save export result to a file
-  #   copy:
-  #     content: "{{ config_output.content }}"
-  #     dest: "/backup/backup.xml"
 
   - name: push cfg to gitlab
     shell: |
