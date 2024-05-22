@@ -1,7 +1,8 @@
 ---
 collections:
-  - cisco.ios
-  - cisco.nxos
-  - paloaltonetworks.panos
-  - awx.awx
-  - arubanetworks.aos_switch
+  # - cisco.ios
+  # - cisco.nxos
+  # - paloaltonetworks.panos
+  # - awx.awx
+  # - arubanetworks.aos_switch
+  - community.network

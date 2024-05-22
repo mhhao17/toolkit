@@ -1,8 +1,21 @@
 # This task will backup the configuration
 - name: Backup aruba aos configuration
-  arubanetworks.aos_switch.arubaoss_config:
+  community.network.aruba_config:
     backup: true
     backup_options:
       dir_path: /tmp/
       filename: "{{ inventory_hostname }}.txt"
   register: config_output
+
+- name: Debug config_output
+  debug:
+    var: config_output
+
+# # This task will backup the configuration
+# - name: Backup aruba aos configuration
+#   arubanetworks.aos_switch.arubaoss_config:
+#     backup: true
+#     backup_options:
+#       dir_path: /tmp/
+#       filename: "{{ inventory_hostname }}.txt"
+#   register: config_output
