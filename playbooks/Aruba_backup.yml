@@ -28,3 +28,9 @@
           filename: "{{ inventory_hostname }}.txt"
       register: config_output
       delegate_to: backup-server
+    
+    - name: Save running configuration to file
+      copy:
+        content: "{{ config_output.stdout[0] }}"
+        dest: "/backup/cisco-cfg-backup/{{ inventory_hostname }}.cfg"
+      delegate_to: backup-server
