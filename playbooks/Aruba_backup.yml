@@ -12,21 +12,12 @@
     delegate_facts: true
     run_once: true
 
-  - name: Create a directory if it does not exist
-    ansible.builtin.file:
-      path: /backup/cisco-cfg-backup/
-      state: directory
-      mode: "755"
-    become: true
-    run_once: true
-
   - name: Backup Aruba Switch Configuration
     arubanetworks.aos_switch.arubaoss_config:
       backup: true
-      # backup_options:
-      #   filename: "/backup/cisco-cfg-backup/{{ inventory_hostname }}.txt"
+      filename: "/backup/cisco-cfg-backup/{{ inventory_hostname }}.txt"
     register: config_output
-    # delegate_to: backup-server
+    delegate_to: backup-server
 
   # - name: push cfg to gitlab
   #   shell: |
