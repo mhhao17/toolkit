@@ -1,0 +1,9 @@
+---
+- name: Test network device connection
+  hosts: network
+  gather_facts: false
+
+  tasks:
+    - name: Test network device connection
+      ping:
+
