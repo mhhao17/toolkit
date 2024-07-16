@@ -2,9 +2,9 @@
 - name: Backup brocade fos configuration
   community.network.icx_config:
     backup: true
-    # backup_options:
-    #   dir_path: /tmp/
-    #   filename: "{{ inventory_hostname }}.cfg"
+    backup_options:
+      dir_path: /tmp/
+      filename: "{{ inventory_hostname }}.cfg"
   register: config_output
 
 # # This task removes the Current configuration... from the top of IOS routers show run
