@@ -25,9 +25,9 @@
         backup: true
         # backup_options:
         #   dir_path: /backup/cisco-cfg-backup/
-        #   filename: "{{ inventory_hostname }}.txt"
-      # register: config_output
-      # delegate_to: backup-server
+        filename: "/backup/cisco-cfg-backup/{{ inventory_hostname }}.txt"
+      register: config_output
+      delegate_to: backup-server
     
     # - name: Save running configuration to file
     #   copy:
